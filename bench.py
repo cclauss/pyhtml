@@ -5,11 +5,14 @@
 """
 import sys
 from timeit import Timer
+
 from jinja2 import Environment as JinjaEnvironment
+
+from pyhtml import body, div, h1, head, html, table, title, ul, var
 
 context = {
     'page_title': 'mitsuhiko\'s benchmark',
-    'table': [dict(a=1,b=2,c=3,d=4,e=5,f=6,g=7,h=8,i=9,j=10) for x in range(10)]
+    'table': [{k: v for v, k in enumerate("abcdefghij", 1)} for _ in range(10)]
 }
 
 jinja_template = JinjaEnvironment(
@@ -66,7 +69,6 @@ def f_table(ctx):
         td(cell) for cell in row
     ) for row in ctx['table'])
 
-from pyhtml import *
 pyhtml_template = html(
     head(
         title(var('page_title'))
